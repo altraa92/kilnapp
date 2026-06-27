@@ -1,11 +1,11 @@
-export default function SimulationControls({ isRunning, onStart, onPause, onReset, t }) {
+export default function SimulationControls({ isAnalyzing, onAnalyze, onLoadDemo, onReset, t }) {
   return (
-    <div className="simulation-controls">
-      <button className="primary-action" type="button" onClick={onStart} disabled={isRunning}>
-        {t.startSimulation}
+    <div className="action-controls">
+      <button className="primary-action" type="button" onClick={onAnalyze} disabled={isAnalyzing}>
+        {isAnalyzing ? t.analyzingBatch : t.analyzeBatch}
       </button>
-      <button type="button" onClick={onPause} disabled={!isRunning}>
-        {t.pauseSimulation}
+      <button type="button" onClick={onLoadDemo}>
+        {t.loadTestBatch}
       </button>
       <button type="button" onClick={onReset}>
         {t.reset}

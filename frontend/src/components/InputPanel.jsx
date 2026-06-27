@@ -91,6 +91,25 @@ export default function InputPanel({ form, onChange, t }) {
           />
         </label>
       </div>
+
+      <div className="threshold-grid" aria-label={t.operatingLimits}>
+        <div>
+          <span>{t.targetMoistureContent}</span>
+          <strong>15%</strong>
+        </div>
+        <div>
+          <span>{t.temperatureLimit}</span>
+          <strong>70C</strong>
+        </div>
+        <div>
+          <span>{t.humidityLimit}</span>
+          <strong>80%</strong>
+        </div>
+        <div>
+          <span>{t.testProfile}</span>
+          <strong>{t.catfish} 2kg</strong>
+        </div>
+      </div>
     </section>
   );
 }
