@@ -191,7 +191,7 @@ def remaining_time_bucket(values: pd.Series | np.ndarray) -> pd.Categorical:
 
 
 def plot_decision_matrix(y_test: pd.Series, predictions: np.ndarray) -> tuple[Path, pd.DataFrame]:
-    actual_bucket = remaining_time_bucket(y_test)
+    actual_bucket = remaining_time_bucket(y_test.to_numpy())
     predicted_bucket = remaining_time_bucket(predictions)
     matrix = pd.crosstab(
         pd.Series(actual_bucket, name="Actual"),
