@@ -25,6 +25,30 @@ export function predictDrying(payload) {
   });
 }
 
+export function startDemoFeed(payload) {
+  return request("/api/demo/start", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function stopDemoFeed() {
+  return request("/api/demo/stop", {
+    method: "POST",
+  });
+}
+
+export function getLatestReading() {
+  return request("/api/readings/latest");
+}
+
+export function submitHardwareReading(payload) {
+  return request("/api/readings", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
 export function getModelInfo() {
   return request("/api/model-info");
 }

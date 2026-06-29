@@ -4,7 +4,14 @@ import InputPanel from "./components/InputPanel.jsx";
 import MetricCard from "./components/MetricCard.jsx";
 import ModelInfo from "./components/ModelInfo.jsx";
 import SimulationControls from "./components/SimulationControls.jsx";
-import { API_BASE_URL, getModelInfo, predictDrying } from "./services/api.js";
+import {
+  API_BASE_URL,
+  getLatestReading,
+  getModelInfo,
+  predictDrying,
+  startDemoFeed,
+  stopDemoFeed,
+} from "./services/api.js";
 import { languages, translate, translations } from "./translations";
 
 const DEFAULT_FORM = {
@@ -70,12 +77,25 @@ function buildMoisturePath(initialMoisture, currentMoisture, targetMoisture) {
   }));
 }
 
+function formFromReading(reading) {
+  return {
+    fishType: reading.fishType,
+    initialWeight: Number(reading.initialWeight),
+    currentWeight: Number(reading.currentWeight),
+    temperature: Number(reading.temperature),
+    humidity: Number(reading.humidity),
+    elapsedTime: Number(reading.elapsedTime),
+  };
+}
+
 export default function App() {
   const [language, setLanguage] = useState("en");
   const [form, setForm] = useState(DEFAULT_FORM);
   const [prediction, setPrediction] = useState(null);
   const [modelInfo, setModelInfo] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isLiveFeed, setIsLiveFeed] = useState(false);
+  const [latestReading, setLatestReading] = useState(null);
   const [error, setError] = useState("");
 
   const t = translations[language];
@@ -93,11 +113,80 @@ export default function App() {
     }
   }, []);
 
+  const applyReadingData = useCallback((data) => {
+    if (!data?.reading) {
+      setLatestReading(null);
+      setIsLiveFeed(false);
+      return;
+    }
+
+    setLatestReading(data.reading);
+    setForm(formFromReading(data.reading));
+    if (data.prediction) {
+      setPrediction(data.prediction);
+    }
+    setIsLiveFeed(Boolean(data.reading.running));
+  }, []);
+
+  const startFeed = useCallback(async () => {
+    try {
+      setIsAnalyzing(true);
+      const data = await startDemoFeed(form);
+      applyReadingData(data);
+      setError("");
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  }, [applyReadingData, form]);
+
+  const stopFeed = useCallback(async () => {
+    try {
+      const data = await stopDemoFeed();
+      applyReadingData(data);
+      setIsLiveFeed(false);
+      setError("");
+    } catch (requestError) {
+      setError(requestError.message);
+    }
+  }, [applyReadingData]);
+
+  const resetDashboard = useCallback(async () => {
+    try {
+      await stopDemoFeed();
+    } catch {
+      // Reset should still work even if the backend feed is already stopped.
+    }
+    setIsLiveFeed(false);
+    setLatestReading(null);
+    setForm(DEFAULT_FORM);
+    setPrediction(null);
+    setError("");
+  }, []);
+
   useEffect(() => {
     getModelInfo()
       .then((data) => setModelInfo(data))
       .catch((requestError) => setError(requestError.message));
   }, []);
+
+  useEffect(() => {
+    if (!isLiveFeed) {
+      return undefined;
+    }
+
+    const interval = window.setInterval(() => {
+      getLatestReading()
+        .then((data) => {
+          applyReadingData(data);
+          setError("");
+        })
+        .catch((requestError) => setError(requestError.message));
+    }, 2200);
+
+    return () => window.clearInterval(interval);
+  }, [applyReadingData, isLiveFeed]);
 
   const metrics = useMemo(() => {
     const status = prediction?.dryingStatus || "Awaiting analysis";
@@ -310,19 +399,27 @@ export default function App() {
 
             <SimulationControls
               isAnalyzing={isAnalyzing}
+              isLiveFeed={isLiveFeed}
               onAnalyze={() => requestPrediction(form)}
               onLoadDemo={() => {
                 setForm(TEST_BATCH);
                 requestPrediction(TEST_BATCH);
               }}
-              onReset={() => {
-                setForm(DEFAULT_FORM);
-                setPrediction(null);
-                setError("");
-              }}
+              onStartFeed={startFeed}
+              onStopFeed={stopFeed}
+              onReset={resetDashboard}
               t={t}
             />
 
+            {latestReading ? (
+              <p className="feed-note">
+                {latestReading.source === "demo"
+                  ? latestReading.running
+                    ? t.demoFeedActive
+                    : t.demoFeedStopped
+                  : t.hardwareFeedActive}
+              </p>
+            ) : null}
             {error ? <p className="error-text">{error}</p> : null}
           </div>
         </section>

@@ -670,6 +670,18 @@ button:disabled {
   white-space: nowrap;
 }
 
+.feed-note {
+  margin: 0;
+  border: 1px solid #b9e3d0;
+  border-radius: 8px;
+  background: var(--green-soft);
+  color: #106244;
+  padding: 10px 12px;
+  font-size: 0.86rem;
+  font-weight: 780;
+  line-height: 1.45;
+}
+
 .error-text {
   margin: 0;
   color: var(--red);
