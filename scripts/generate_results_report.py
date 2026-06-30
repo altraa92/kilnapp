@@ -468,21 +468,13 @@ def build_document(
         ["Area", "Check", "Status", "Evidence"],
         [[row["area"], row["check"], row["status"], row["evidence"]] for row in app_checks],
     )
-    online_response = APP_EVALUATION_DIR / "06_online_hosted_response_time.png"
-    online_cold_start = APP_EVALUATION_DIR / "07_render_cold_start_summary.png"
+    online_response = APP_EVALUATION_DIR / "03_online_response_time.png"
     if online_response.exists():
         add_figure(
             document,
             "Hosted Response-Time Evaluation",
             online_response,
             "Warm online response-time measurements from this PC/network to the hosted Vercel frontend and Render backend.",
-        )
-    if online_cold_start.exists():
-        add_figure(
-            document,
-            "Render Cold-Start Evaluation",
-            online_cold_start,
-            "Separates Render free-tier cold-start delay from normal warm API response time.",
         )
 
     document.add_heading("Demo Prediction Result", level=1)
