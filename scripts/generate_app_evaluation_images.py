@@ -342,7 +342,7 @@ def draw_response_time_chart(results: dict[str, object]) -> Path:
     fig.text(
         0.055,
         0.77,
-        "Measured with Flask test client on the local prototype environment; deployed internet latency can be higher.",
+        "Measured with Flask test client in the local development environment; deployed internet latency can be higher.",
         fontsize=17,
         color=MUTED,
     )
@@ -453,11 +453,11 @@ def draw_scorecard(results: dict[str, object]) -> Path:
         )
 
     fig.text(0.055, 0.89, "APP EVALUATION SUMMARY", fontsize=18, fontweight="bold", color=MUTED)
-    fig.text(0.055, 0.82, "Prototype App Scorecard", fontsize=42, fontweight="bold", color=INK)
+    fig.text(0.055, 0.82, "Application Scorecard", fontsize=42, fontweight="bold", color=INK)
     fig.text(
         0.055,
         0.76,
-        "These are software checks for the prototype application; they are separate from the ML model metrics.",
+        "These are software checks for the application; they are separate from the ML model metrics.",
         fontsize=17,
         color=MUTED,
     )

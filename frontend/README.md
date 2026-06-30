@@ -1,6 +1,6 @@
 # Fish Kiln Frontend
 
-Vite + React dashboard for the intelligent fish kiln prototype.
+Vite + React dashboard for the intelligent fish kiln monitoring system.
 
 The frontend demonstrates the final workflow with simulated sensor readings. It sends fish type, weight, temperature, humidity, and elapsed time to the Flask backend, then displays estimated moisture content, drying progress, alerts, and Random Forest remaining-time prediction.
 
@@ -48,6 +48,6 @@ Set this environment variable in the deployment platform:
 VITE_API_BASE_URL=https://your-backend-url
 ```
 
-## Important Prototype Note
+## Important Data Note
 
 The backend model is currently trained on synthetic data for demonstration. In the final project implementation, the synthetic dataset will be replaced with real experimental drying data collected from the ESP32 sensor network.

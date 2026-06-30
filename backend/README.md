@@ -1,6 +1,6 @@
 # Fish Kiln Backend
 
-Flask API and Random Forest Regression model for the intelligent solar-assisted fish kiln prototype.
+Flask API and Random Forest Regression model for the intelligent solar-assisted fish kiln system.
 
 The current model is trained on synthetic drying data so the full system workflow can be demonstrated before ESP32 sensor data is available. In the final implementation, `synthetic_drying_data.csv` should be replaced with real drying data collected from the sensor network.
 
@@ -62,7 +62,7 @@ The backend starts on `http://127.0.0.1:5000`.
 
 The backend can be deployed on Render or Railway.
 
-For this prototype, Render is the simplest free PaaS option. This repository includes a root-level `render.yaml` Blueprint that deploys this backend from the `backend/` directory.
+For this project, Render is the simplest free PaaS option. This repository includes a root-level `render.yaml` Blueprint that deploys this backend from the `backend/` directory.
 
 Render settings if configuring manually:
 

@@ -1,0 +1,109 @@
+{
+  "measured_at": "2026-06-30",
+  "measurement_origin": "This PC/network to hosted Vercel frontend and hosted Render backend",
+  "warm_measurement_method": "Python urllib total elapsed time, 5 requests per route",
+  "frontend_url": "https://frontend-chi-tawny-61.vercel.app",
+  "backend_url": "https://fish-kiln-backend.onrender.com",
+  "cold_start_results": [
+    {
+      "label": "Render health after sleep",
+      "endpoint": "https://fish-kiln-backend.onrender.com/api/health",
+      "http_status": 200,
+      "total_seconds": 42.833746
+    },
+    {
+      "label": "Render latest reading after sleep",
+      "endpoint": "https://fish-kiln-backend.onrender.com/api/readings/latest",
+      "http_status": 200,
+      "total_seconds": 42.773751
+    }
+  ],
+  "warm_results": [
+    {
+      "label": "Vercel frontend page",
+      "endpoint": "https://frontend-chi-tawny-61.vercel.app",
+      "successes": 5,
+      "failures": 0,
+      "codes": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "avg_total_ms": 1445.9,
+      "median_total_ms": 627.2,
+      "min_total_ms": 382.5,
+      "max_total_ms": 4812.8
+    },
+    {
+      "label": "Render health",
+      "endpoint": "https://fish-kiln-backend.onrender.com/api/health",
+      "successes": 5,
+      "failures": 0,
+      "codes": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "avg_total_ms": 1052.2,
+      "median_total_ms": 1039.9,
+      "min_total_ms": 732.5,
+      "max_total_ms": 1339.2
+    },
+    {
+      "label": "Render model metadata",
+      "endpoint": "https://fish-kiln-backend.onrender.com/api/model-info",
+      "successes": 5,
+      "failures": 0,
+      "codes": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "avg_total_ms": 2729.0,
+      "median_total_ms": 1008.7,
+      "min_total_ms": 731.4,
+      "max_total_ms": 9527.7
+    },
+    {
+      "label": "Render prediction",
+      "endpoint": "https://fish-kiln-backend.onrender.com/api/predict",
+      "successes": 5,
+      "failures": 0,
+      "codes": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "avg_total_ms": 1351.1,
+      "median_total_ms": 1240.4,
+      "min_total_ms": 1037.9,
+      "max_total_ms": 2041.8
+    },
+    {
+      "label": "Render latest reading",
+      "endpoint": "https://fish-kiln-backend.onrender.com/api/readings/latest",
+      "successes": 5,
+      "failures": 0,
+      "codes": [
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "avg_total_ms": 1232.5,
+      "median_total_ms": 933.0,
+      "min_total_ms": 901.9,
+      "max_total_ms": 2153.3
+    }
+  ],
+  "note": "Warm results exclude Render free-tier cold start. Cold-start results show an earlier first request after the service had slept."
+}

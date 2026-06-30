@@ -1,6 +1,6 @@
-# Intelligent Solar-Assisted Fish Kiln Prototype
+# Intelligent Solar-Assisted Fish Kiln System
 
-Working prototype for a final year project dashboard and API:
+Final year project dashboard and API:
 
 **Development of an Intelligent Solar-Assisted Fish Kiln System with Sensor-Based Monitoring, Predictive Drying-Time Estimation, and Multilingual Web Application.**
 
@@ -9,7 +9,7 @@ The project contains:
 - `backend/`: Flask API, synthetic data generation, Random Forest Regression training, and prediction endpoints.
 - `frontend/`: Vite + React multilingual monitoring dashboard with simulated sensor updates.
 
-The prototype does not connect to ESP32 hardware yet. It uses simulated inputs and a synthetic dataset to demonstrate the intended workflow. Real experimental drying data can replace `backend/synthetic_drying_data.csv` later.
+The current version does not connect to ESP32 hardware yet. It uses simulated inputs and a synthetic dataset to demonstrate the intended workflow. Real experimental drying data can replace `backend/synthetic_drying_data.csv` later.
 
 ## Quick Start
 
