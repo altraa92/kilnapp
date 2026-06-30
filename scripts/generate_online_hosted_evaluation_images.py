@@ -154,11 +154,13 @@ def draw_card(
     body: str,
     color: str = TEAL,
     body_size: float = 20,
+    title_size: float = 14,
+    body_offset: float = 0.095,
 ) -> None:
     ax.add_patch(plt.Rectangle((x, y), w, h, facecolor=CARD, edgecolor=LINE, linewidth=2))
     ax.add_patch(plt.Rectangle((x, y), 0.012, h, facecolor=color, edgecolor=color))
-    ax.text(x + 0.03, y + h - 0.045, title, fontsize=14, color=MUTED, fontweight="bold")
-    ax.text(x + 0.03, y + h - 0.095, body, fontsize=body_size, color=INK, fontweight="bold", linespacing=1.12)
+    ax.text(x + 0.03, y + h - 0.05, title, fontsize=title_size, color=MUTED, fontweight="bold")
+    ax.text(x + 0.03, y + h - body_offset, body, fontsize=body_size, color=INK, fontweight="bold", linespacing=1.16)
 
 
 def draw_scope(results: dict[str, Any]) -> Path:
@@ -184,13 +186,13 @@ def draw_scope(results: dict[str, Any]) -> Path:
         (0.75, "Prediction model", "Random Forest\noutput", AMBER),
     ]
     for x, title, body, color in boxes:
-        draw_card(ax, x, 0.38, 0.19, 0.16, title, body, color, body_size=18)
+        draw_card(ax, x, 0.36, 0.19, 0.20, title, body, color, body_size=16, title_size=12.5, body_offset=0.125)
 
     for x in [0.25, 0.48, 0.71]:
         ax.annotate(
             "",
-            xy=(x + 0.03, 0.46),
-            xytext=(x, 0.46),
+            xy=(x + 0.03, 0.455),
+            xytext=(x, 0.455),
             arrowprops={"arrowstyle": "->", "color": INK, "linewidth": 2.5},
         )
 
